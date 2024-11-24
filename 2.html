@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Go On a Date With Me?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .question {
+            font-size: 1.5em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #ff69b4;
+            border: none;
+            padding: 15px 30px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #ff1493;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+        }
+        #finalQuestion {
+            display: none;
+        }
+        #response {
+            display: none;
+            font-size: 1.5em;
+            color: #2c6f80;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hey Lathi, I’ve got a few questions for you!</h1>
+        
+        <div id="questionsContainer">
+            <!-- First Question -->
+            <div id="question1" class="question">
+                <p>Would you like to spend more time with me?</p>
+                <button onclick="nextQuestion('q1', true)">Yes</button>
+                <button onclick="nextQuestion('q1', false)">No</button>
+            </div>
+
+            <!-- Second Question -->
+            <div id="question2" class="question" style="display: none;">
+                <p>Do you enjoy the things we talk about?</p>
+                <button onclick="nextQuestion('q2', true)">Yes</button>
+                <button onclick="nextQuestion('q2', false)">No</button>
+            </div>
+
+            <!-- Third Question -->
+            <div id="question3" class="question" style="display: none;">
+                <p>Unidthanda nyan nyan??</p>
+                <button onclick="nextQuestion('q3', true)">Yes</button>
+                <button onclick="nextQuestion('q3', false)">No</button>
+            </div>
+
+            <!-- Final Question -->
+            <div id="finalQuestion" class="question" style="display: none;">
+                <p>Would you go on a date with me on the 26th of November, 2024 at 17H00?</p>
+                <button onclick="finalAnswer(true)">Yes!</button>
+                <button onclick="finalAnswer(false)">No</button>
+            </div>
+        </div>
+        
+        <!-- Response Section -->
+        <div id="response">
+            <p id="responseMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        // Track answers and move through the questions
+        let answers = {
+            q1: null,
+            q2: null,
+            q3: null,
+            final: null
+        };
+
+        // Function to handle moving to the next question
+        function nextQuestion(questionId, answer) {
+            // Store the answer
+            answers[questionId] = answer;
+
+            // Hide current question
+            document.getElementById(questionId).style.display = "none";
+
+            // Show the next question based on the questionId
+            if (questionId === 'q1') {
+                document.getElementById('question2').style.display = "block";
+            } else if (questionId === 'q2') {
+                document.getElementById('question3').style.display = "block";
+            } else if (questionId === 'q3') {
+                document.getElementById('finalQuestion').style.display = "block";
+            }
+        }
+
+        // Function to handle the final answer and display the response message
+        function finalAnswer(answer) {
+            // Store the final answer
+            answers.final = answer;
+
+            // Hide the final question
+            document.getElementById('finalQuestion').style.display = "none";
+
+            // Show the response message
+            document.getElementById('response').style.display = "block";
+            let responseMessage = "";
+
+            // Show response message based on the final answer
+            if (answers.final) {
+                responseMessage = "I guess I’ll see you at 17H00 then, text me for further details ;)";
+            } else {
+                responseMessage = "Aww, that’s okay! I appreciate you considering it. Maybe another time!";
+            }
+            
+            document.getElementById('responseMessage').innerText = responseMessage;
+        }
+    </script>
+</body>
+</html>
