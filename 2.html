@@ -36,6 +36,7 @@
             cursor: pointer;
             border-radius: 8px;
             margin: 10px;
+            z-index: 10; /* Ensure buttons are on top */
         }
         button:hover {
             background-color: #ff1493;
@@ -62,22 +63,22 @@
             <!-- First Question -->
             <div id="question1" class="question">
                 <p>Would you like to spend more time with me?</p>
-                <button onclick="nextQuestion('q1', true)">Yes</button>
-                <button onclick="nextQuestion('q1', false)">No</button>
+                <button onclick="nextQuestion('question1', true)">Yes</button>
+                <button onclick="nextQuestion('question1', false)">No</button>
             </div>
 
             <!-- Second Question -->
             <div id="question2" class="question" style="display: none;">
                 <p>Do you enjoy the things we talk about?</p>
-                <button onclick="nextQuestion('q2', true)">Yes</button>
-                <button onclick="nextQuestion('q2', false)">No</button>
+                <button onclick="nextQuestion('question2', true)">Yes</button>
+                <button onclick="nextQuestion('question2', false)">No</button>
             </div>
 
             <!-- Third Question -->
             <div id="question3" class="question" style="display: none;">
                 <p>Unidthanda nyan nyan??</p>
-                <button onclick="nextQuestion('q3', true)">Yes</button>
-                <button onclick="nextQuestion('q3', false)">No</button>
+                <button onclick="nextQuestion('question3', true)">Yes</button>
+                <button onclick="nextQuestion('question3', false)">No</button>
             </div>
 
             <!-- Final Question -->
@@ -108,15 +109,18 @@
             // Store the answer
             answers[questionId] = answer;
 
-            // Hide current question
-            document.getElementById(questionId).style.display = "none";
+            // Hide the current question
+            const currentQuestion = document.getElementById(questionId);
+            if (currentQuestion) {
+                currentQuestion.style.display = "none";
+            }
 
             // Show the next question based on the questionId
-            if (questionId === 'q1') {
+            if (questionId === 'question1') {
                 document.getElementById('question2').style.display = "block";
-            } else if (questionId === 'q2') {
+            } else if (questionId === 'question2') {
                 document.getElementById('question3').style.display = "block";
-            } else if (questionId === 'q3') {
+            } else if (questionId === 'question3') {
                 document.getElementById('finalQuestion').style.display = "block";
             }
         }
@@ -127,10 +131,17 @@
             answers.final = answer;
 
             // Hide the final question
-            document.getElementById('finalQuestion').style.display = "none";
+            const finalQuestionElement = document.getElementById('finalQuestion');
+            if (finalQuestionElement) {
+                finalQuestionElement.style.display = "none";
+            }
 
             // Show the response message
-            document.getElementById('response').style.display = "block";
+            const responseElement = document.getElementById('response');
+            if (responseElement) {
+                responseElement.style.display = "block";
+            }
+            
             let responseMessage = "";
 
             // Show response message based on the final answer
